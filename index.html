@@ -13,7 +13,9 @@
     </script>
 </head>
 <body>
-    <div id="header-placeholder"></div>
+    <header role="banner">
+        <div id="">header</div>
+    </header>
 
     <main role="main">
         <h1>Dayunshorui</h1>
@@ -24,12 +26,11 @@
         <button class="pdf-btn" onclick="window.print()">📄 Lưu trang này thành PDF</button>
     </footer>
 
+    <script src="templates/load.js"></script>
     <script>
-    fetch('templates/main.html')
-        .then(res => res.text())
-        .then(html => {
-            document.getElementById('header-placeholder').innerHTML = html;
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTemplate('header', 'main.html');
         });
-</script>
+    </script>
 </body>
 </html>
