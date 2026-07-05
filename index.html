@@ -13,10 +13,7 @@
     </script>
 </head>
 <body>
-    <header role="banner">
-        <div id="menu"></div>
-        <div id="clock"></div>
-    </header>
+    <div id="header-placeholder"></div>
 
     <main role="main">
         <h1>Dayunshorui</h1>
@@ -27,12 +24,12 @@
         <button class="pdf-btn" onclick="window.print()">📄 Lưu trang này thành PDF</button>
     </footer>
 
-    <script src="templates/load.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            loadTemplate('menu', 'menu.html');
-            loadTemplate('clock', 'clock.html');
+    fetch('templates/main.html')
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('header-placeholder').innerHTML = html;
         });
-    </script>
+</script>
 </body>
 </html>
