@@ -1,5 +1,5 @@
 function loadTemplate(id, fileName) {
-    fetch(`/hazun_test/templates/${fileName}`)
+    fetch(`/Dayunshorui/templates/${fileName}`)
         .then(res => {
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             return res.text();
