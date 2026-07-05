@@ -1,0 +1,200 @@
+<!-- ============================================================ -->
+<!-- ================ FILE: header.html (ĐÃ GỘP) ================ -->
+<!-- ============================================================ -->
+
+<!-- 
+    📌 LƯU Ý CHIA MỤC:
+    1. PHẦN ĐỒNG HỒ: Hiển thị thời gian Việt Nam
+    2. PHẦN MENU CHÍNH: Menu tĩnh (Trang chủ)
+    3. PHẦN MENU ĐỘNG: Tự động lấy danh sách file từ GitHub
+    4. PHẦN STYLE: CSS tích hợp
+-->
+
+<!-- ================== 4. PHẦN STYLE ================== -->
+<style>
+    /* ===== STYLE CHO HEADER ===== */
+    .header-wrapper {
+        background: #2c3e50;
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .menu-left {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .menu-left a {
+        color: white;
+        text-decoration: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        transition: background 0.3s;
+    }
+
+    .menu-left a:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .menu-right {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        color: #ecf0f1;
+        font-size: 14px;
+    }
+
+    .clock {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-family: 'Courier New', monospace;
+        font-weight: bold;
+        color: #3498db;
+        font-size: 16px;
+        min-width: 80px;
+        text-align: center;
+    }
+
+    .separator {
+        color: #7f8c8d;
+        margin: 0 4px;
+    }
+
+    @media (max-width: 768px) {
+        .header-wrapper {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .menu-left {
+            justify-content: center;
+        }
+        .menu-right {
+            justify-content: center;
+        }
+    }
+</style>
+
+<!-- ================== 1. PHẦN ĐỒNG HỒ (Script) ================== -->
+<script>
+    // ============================================
+    // MỤC 1: ĐỒNG HỒ THỜI GIAN VIỆT NAM
+    // Cập nhật mỗi giây
+    // ============================================
+    function updateClock() {
+        const now = new Date();
+        const timeString = now.toLocaleString('vi-VN', {
+            timeZone: 'Asia/Ho_Chi_Minh',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        });
+        const el = document.getElementById('currentTimeVN');
+        if (el) el.textContent = timeString;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+</script>
+
+<!-- ================== 2+3. PHẦN MENU (HTML + Script động) ================== -->
+<!-- ============================================ -->
+<!-- MỤC 2: MENU CHÍNH (Tĩnh)                    -->
+<!-- MỤC 3: MENU ĐỘNG (Tự động lấy từ GitHub)   -->
+<!-- ============================================ -->
+
+<div class="header-wrapper">
+    <!-- PHẦN MENU TRÁI -->
+    <div class="menu-left">
+        <a href="/hazun_test/">🏠 Trang chủ</a>
+        <span class="separator">|</span>
+        <span id="menu-auto"></span>
+    </div>
+
+    <!-- PHẦN MENU PHẢI (Đồng hồ) -->
+    <div class="menu-right">
+        <span>🕐</span>
+        <span class="clock" id="currentTimeVN">--:--:--</span>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- MỤC 3: SCRIPT TỰ ĐỘNG LẤY FILE TỪ GITHUB   -->
+<!-- ============================================ -->
+<script>
+    // ============================================
+    // MỤC 3: LẤY DANH SÁCH FILE TỪ GITHUB
+    // Tự động tạo link cho các file .html (trừ index)
+    // ============================================
+    (function loadGitHubMenu() {
+        const menu = document.getElementById('menu-auto');
+        if (!menu) return;
+
+        // Hiển thị loading
+        menu.innerHTML = '<span style="color: #bdc3c7; font-size: 13px;">⏳ Đang tải...</span>';
+
+        fetch('https://api.github.com/repos/Dayunshorui/hazun_test/contents/')
+            .then(res => {
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                return res.json();
+            })
+            .then(files => {
+                // Xóa loading
+                menu.innerHTML = '';
+
+                // Lọc và sắp xếp file
+                const htmlFiles = files
+                    .filter(file => file.name.endsWith('.html') && file.name !== 'index.html')
+                    .sort((a, b) => a.name.localeCompare(b.name));
+
+                if (htmlFiles.length === 0) {
+                    menu.innerHTML = '<span style="color: #bdc3c7; font-size: 13px;">📂 Chưa có trang con</span>';
+                    return;
+                }
+
+                // Tạo link cho từng file
+                htmlFiles.forEach((file, index) => {
+                    const name = file.name.replace('.html', '');
+                    const displayName = name.replace(/-/g, ' ');
+
+                    const link = document.createElement('a');
+                    link.href = `/Dayunshorui/${name}`;
+                    link.textContent = `📄 ${displayName}`;
+                    link.title = `Mở trang: ${displayName}`;
+
+                    // Thêm separator sau mỗi link (trừ link cuối)
+                    if (index < htmlFiles.length - 1) {
+                        const separator = document.createElement('span');
+                        separator.textContent = ' | ';
+                        separator.style.cssText = 'color: #7f8c8d; margin: 0 4px;';
+                        menu.appendChild(link);
+                        menu.appendChild(separator);
+                    } else {
+                        menu.appendChild(link);
+                    }
+                });
+
+                console.log(`✅ Đã tạo menu cho ${htmlFiles.length} file HTML`);
+            })
+            .catch(err => {
+                console.error('❌ Lỗi tải menu GitHub:', err);
+                menu.innerHTML = `
+                    <span style="color: #e74c3c; font-size: 13px;">
+                        ⚠️ Không thể tải menu
+                    </span>
+                `;
+            });
+    })();
+</script>
+
+<!-- ============================================================ -->
+<!-- ================ HẾT FILE header.html ====================== -->
+<!-- ============================================================ -->
