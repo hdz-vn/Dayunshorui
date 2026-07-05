@@ -1,1 +1,625 @@
-<title>Dayunshorui</title>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thư viện Đề cương Nội bộ</title>
+    
+    <!-- Font Awesome cho icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    
+    <style>
+        /* ===== RESET & CƠ BẢN ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: #1F2937;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: #3B82F6;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #F59E0B;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background-color: #0F172A;
+            color: #ffffff;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.2);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: #3B82F6;
+            font-size: 28px;
+        }
+
+        .logo span {
+            color: #F59E0B;
+        }
+
+        nav {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #cbd5e1;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ffffff;
+        }
+
+        .btn-primary {
+            background-color: #3B82F6;
+            color: #ffffff;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #F59E0B;
+            color: #0F172A;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: 80px 0 60px 0;
+            text-align: center;
+            background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: #0F172A;
+        }
+
+        .hero h1 i {
+            color: #F59E0B;
+        }
+
+        .hero .highlight {
+            color: #3B82F6;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto 32px auto;
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 12px;
+            background: #ffffff;
+            padding: 8px;
+            border-radius: 60px;
+            box-shadow: 0 4px 30px rgba(15, 23, 42, 0.08);
+            border: 1px solid #e2e8f0;
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 16px 24px;
+            font-size: 16px;
+            outline: none;
+            background: transparent;
+            color: #1F2937;
+        }
+
+        .search-box input::placeholder {
+            color: #94a3b8;
+        }
+
+        .search-box button {
+            background-color: #3B82F6;
+            color: #ffffff;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 60px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .search-box button:hover {
+            background-color: #2563eb;
+            transform: scale(1.02);
+        }
+
+        /* ===== THỐNG KÊ NHANH ===== */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            padding: 40px 0 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .stats .stat-item {
+            text-align: center;
+        }
+
+        .stats .stat-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: #0F172A;
+        }
+
+        .stats .stat-label {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== DANH MỤC MÔN HỌC ===== */
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 60px 0 32px 0;
+            color: #0F172A;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: #3B82F6;
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+            border: 1px solid #f1f5f9;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(15, 23, 42, 0.12);
+            border-color: #3B82F6;
+        }
+
+        .card .card-icon {
+            font-size: 32px;
+            color: #3B82F6;
+            margin-bottom: 12px;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #0F172A;
+        }
+
+        .card p {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .card .tag {
+            display: inline-block;
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-right: 6px;
+        }
+
+        .card .tag.hot {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+
+        .card .tag.new {
+            background: #DBEAFE;
+            color: #1D4ED8;
+        }
+
+        /* ===== BẢNG ĐỀ CƯƠNG MỚI NHẤT ===== */
+        .table-wrapper {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+            margin-bottom: 60px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: #f8fafc;
+        }
+
+        th {
+            text-align: left;
+            padding: 16px 24px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 16px 24px;
+            border-top: 1px solid #f1f5f9;
+            color: #1F2937;
+        }
+
+        td .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status.published {
+            background: #DCFCE7;
+            color: #15803D;
+        }
+
+        .status.draft {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+
+        .table-link {
+            color: #3B82F6;
+            font-weight: 500;
+        }
+
+        .table-link:hover {
+            color: #F59E0B;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: #0F172A;
+            color: #94a3b8;
+            padding: 40px 0;
+            margin-top: 20px;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-inner h4 {
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .footer-inner a {
+            color: #94a3b8;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .footer-inner a:hover {
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #1e293b;
+            font-size: 14px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+            .hero p {
+                font-size: 16px;
+            }
+            .search-box {
+                flex-direction: column;
+                border-radius: 16px;
+                background: #f8fafc;
+                padding: 12px;
+            }
+            .search-box button {
+                width: 100%;
+            }
+            .stats {
+                gap: 30px;
+            }
+            .header-inner {
+                flex-direction: column;
+                gap: 12px;
+            }
+            nav {
+                justify-content: center;
+            }
+            .section-title {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid-cards {
+                grid-template-columns: 1fr;
+            }
+            table {
+                font-size: 13px;
+            }
+            th, td {
+                padding: 12px 16px;
+            }
+            .stats .stat-number {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="container header-inner">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                Đề cương<span>Hub</span>
+            </div>
+            <nav>
+                <a href="#">Trang chủ</a>
+                <a href="#">Môn học</a>
+                <a href="#">Đề cương</a>
+                <a href="#">Liên hệ</a>
+                <a href="#" class="btn-primary"><i class="fas fa-upload"></i> Tải lên</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="container">
+            <h1>
+                <i class="fas fa-graduation-cap"></i><br />
+                Kho đề cương <span class="highlight">nội bộ</span>
+            </h1>
+            <p>
+                Chia sẻ, tìm kiếm và quản lý đề cương môn học dễ dàng hơn bao giờ hết.
+            </p>
+
+            <div class="search-box">
+                <input type="text" placeholder="Tìm kiếm đề cương theo tên môn học..." />
+                <button><i class="fas fa-search"></i> Tìm kiếm</button>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">156</div>
+                    <div class="stat-label">Đề cương</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">42</div>
+                    <div class="stat-label">Môn học</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">28</div>
+                    <div class="stat-label">Khoa/Bộ môn</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== DANH MỤC MÔN HỌC ===== -->
+    <div class="container">
+        <div class="section-title">
+            <i class="fas fa-th-list"></i> Danh mục môn học nổi bật
+        </div>
+
+        <div class="grid-cards">
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-code"></i></div>
+                <h3>Lập trình Web</h3>
+                <p>HTML, CSS, JavaScript, React cơ bản</p>
+                <span class="tag hot">🔥 Hot</span>
+                <span class="tag">12 đề cương</span>
+            </div>
+
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-database"></i></div>
+                <h3>Cơ sở dữ liệu</h3>
+                <p>SQL, NoSQL, Thiết kế CSDL</p>
+                <span class="tag new">✨ Mới</span>
+                <span class="tag">8 đề cương</span>
+            </div>
+
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-cloud"></i></div>
+                <h3>Điện toán đám mây</h3>
+                <p>AWS, Azure, Docker cơ bản</p>
+                <span class="tag">6 đề cương</span>
+            </div>
+
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-robot"></i></div>
+                <h3>AI & Machine Learning</h3>
+                <p>Python, TensorFlow, Xử lý dữ liệu</p>
+                <span class="tag hot">🔥 Hot</span>
+                <span class="tag">15 đề cương</span>
+            </div>
+
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>An toàn thông tin</h3>
+                <p>Mã hóa, bảo mật web, Kali Linux</p>
+                <span class="tag">9 đề cương</span>
+            </div>
+
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-mobile-alt"></i></div>
+                <h3>Lập trình di động</h3>
+                <p>Flutter, React Native, Android</p>
+                <span class="tag new">✨ Mới</span>
+                <span class="tag">5 đề cương</span>
+            </div>
+        </div>
+
+        <!-- ===== BẢNG ĐỀ CƯƠNG MỚI NHẤT ===== -->
+        <div class="section-title">
+            <i class="fas fa-clock"></i> Đề cương mới cập nhật
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tên đề cương</th>
+                        <th>Môn học</th>
+                        <th>Ngày cập nhật</th>
+                        <th>Trạng thái</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Đề cương React Hooks</strong></td>
+                        <td>Lập trình Web</td>
+                        <td>05/07/2026</td>
+                        <td><span class="status published">Đã xuất bản</span></td>
+                        <td><a href="#" class="table-link">Xem <i class="fas fa-arrow-right"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phân tích dữ liệu với Python</strong></td>
+                        <td>AI & ML</td>
+                        <td>03/07/2026</td>
+                        <td><span class="status published">Đã xuất bản</span></td>
+                        <td><a href="#" class="table-link">Xem <i class="fas fa-arrow-right"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Docker cho người mới</strong></td>
+                        <td>Điện toán đám mây</td>
+                        <td>01/07/2026</td>
+                        <td><span class="status draft">Nháp</span></td>
+                        <td><a href="#" class="table-link">Xem <i class="fas fa-arrow-right"></i></a></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flutter cơ bản - Ứng dụng Todo</strong></td>
+                        <td>Lập trình di động</td>
+                        <td>28/06/2026</td>
+                        <td><span class="status published">Đã xuất bản</span></td>
+                        <td><a href="#" class="table-link">Xem <i class="fas fa-arrow-right"></i></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <div>
+                    <h4><i class="fas fa-book-open"></i> Đề cươngHub</h4>
+                    <p style="max-width: 300px; color:#94a3b8;">
+                        Nền tảng chia sẻ đề cương nội bộ dành cho giảng viên và sinh viên.
+                    </p>
+                </div>
+                <div>
+                    <h4>Liên kết</h4>
+                    <a href="#">Trang chủ</a>
+                    <a href="#">Môn học</a>
+                    <a href="#">Đề cương</a>
+                    <a href="#">Liên hệ</a>
+                </div>
+                <div>
+                    <h4>Hỗ trợ</h4>
+                    <a href="#"><i class="fas fa-envelope"></i> support@decuonghub.com</a>
+                    <a href="#"><i class="fas fa-phone"></i> 0123 456 789</a>
+                    <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
+                    <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Đề cươngHub - Nội bộ công khai. Mọi quyền được bảo lưu.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
